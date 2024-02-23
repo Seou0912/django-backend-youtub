@@ -1,0 +1,34 @@
+version: "3.11"
+services:
+  # 1. 1st container django
+  app:
+    build:
+      context: .
+      args:
+        - DEV=true
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+    command: sh -c "python manage.py wait_for_db && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=youtube
+      - DB_USER=seou0912
+      - DB_PASSWORD=wjdtjdn0912
+    # django on
+    depends_on:
+      - db
+
+    # 2. 2nd container: PostgreSQL
+  db:
+    image: postgres:16
+    # volumes :data 저장공간   이동공간
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=youtube
+      - POSTGRES_USER=seou0912
+      - POSTGRES_PASSWORD=wjdtjdn0912
+
+      # docker-compose up --build
