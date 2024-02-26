@@ -55,3 +55,19 @@
 8. Chatting (예정)
 
 - User:Fk (nickname)
+
+1일차 프로젝트 셋팅(Docker-> Django Github-> Github Actions
+
+
+
+polls/
+    __init__.py
+    models.py
+    management/
+        __init__.py
+        commands/
+            __init__.py
+            _private.py
+            closepoll.py
+    tests.py
+    views.py
