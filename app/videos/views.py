@@ -3,6 +3,9 @@ from rest_framework.response import Response
 from .models import Video
 from .serializers import VideoSerializer
 from rest_framework.exceptions import NotFound
+from rest_framework import status
+
+import pdb  # pdb를 사용하여 테스트 코드를 디버깅하시오
 
 
 # 1.VideoList
@@ -13,11 +16,24 @@ from rest_framework.exceptions import NotFound
 class VideoList(APIView):
     def get(self, request):
         videos = Video.objects.all()
-        print("videos : ", videos)  # 직렬화 (장고객체->JSON으로 변환) => SERIALRIZER
+        print("videos : ", videos)  # (장고객체->JSON으로 변환) => SERIALRIZER
 
         serializer = VideoSerializer(videos, many=True)  # 쿼리셋이 2개 이상
 
         return Response(serializer.data)
+
+    def post(self, request):  # pk: Primary Key(ID)
+        try:
+            user_data = request.data
+            serializer = VideoSerializer(data=user_data)
+
+            if serializer.is_valid():
+                serializer.save(user=request.user)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        except Exception as e:
+            return Response({"msg": set(e)}, status=status.Http_400_BAD_REQUEST)
 
 
 # 2.VideoDetail
@@ -38,3 +54,22 @@ class VideoDetail(APIView):
         serializer = VideoSerializer(video)
 
         return Response(serializer.data)
+
+    def put(self, request, pk):
+        video = self.get_object(pk)
+        user_data = request.data
+
+        try:
+            serializer = VideoSerializer(video, data=user_data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+
+            return Response(serializer.data)
+        except Exception as e:
+            return Response({"msg": set(e)}, status=status.Http_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        video = self.get_object(pk)
+        video.delete()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
