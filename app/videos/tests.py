@@ -38,14 +38,14 @@ class VideoAPITestCase(APITestCase):
         # kwaargs :keyword arguments
         url = reverse("video-detail", kwargs={"pk": self.video.pk})
 
-        res = self.client.get(url)
+        res = self.client.get(url)  # api/v1/videos/1
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
 
     # video 생성이 잘 되었는지 확인하기위한 테스트
     def test_video_list_post(self):
         url = reverse("video-list")
-        print("user: ", self.user)
+        # print("user: ", self.user)
 
         data = {
             "title": "test video2",
@@ -59,7 +59,7 @@ class VideoAPITestCase(APITestCase):
             "user": self.user.pk,
         }
         res = self.client.post(url, data)
-        print(res)
+        # print(res)
         # pdb.set_trace()
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
@@ -80,11 +80,11 @@ class VideoAPITestCase(APITestCase):
             ),
             "user": self.user.pk,
         }
-        res = self.client.put(url, data, content_type="application/json")
+        res = self.client.put(url, data)
         # pdb.set_trace()
         self.assertEqual(res.status_code, status.HTTP_200_OK)
+
         self.assertEqual(res.data["title"], "updated video")
-        pass
 
     # 비디오 삭제
     def test_video_detail_delete(self):
