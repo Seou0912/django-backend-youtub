@@ -1,9 +1,9 @@
 from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
-from app.chat.route import websocket_urlpatterns
-import os
+from chat.routes import websocket_urlpatterns
 
-from django.core.wsgi import get_asgi_application
+import os
+from django.core.asgi import get_asgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "app.settings")
 

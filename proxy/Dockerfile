@@ -1,5 +1,5 @@
 FROM nginx:latest
-LABEL maintainer='seopftware'
+LABEL maintainer='seou0912'
 
 COPY ./default.conf.tpl /etc/nginx/default.conf.tpl
 COPY ./uwsgi_params /etc/nginx/uswgi_params
