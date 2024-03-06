@@ -139,3 +139,56 @@ SubscriptonDetail
 [DELETE] 구독취소
 
 (7) Reaction API
+
+- 영상에 대해 좋아요, 싫어요를 추가하는 기능입니다.
+- REST FUL한 API인가
+
+- api/v1/reaction/{video_id}
+- api/v1/video/{video_id}/reaction => 이 방식으로 API를 만들어 보도록 하겠습니다.
+- 어떤 API를 만들어야 할까요?
+
+ReactionDetail
+[POST] - 좋아요, 싫어요 생성 및 업데이트
+[DELETE] - 좋아요, 싫어요 삭제
+
+api/v1/video
+(1) 좋아요, 싫어요 데이터가 보이게끔 하는 게
+(2) 전체 영상 데이터를 내려줄 때, 좋아요 싫어요 갯수가 보이게 해주세요!
+
+like/dislike count
+
+- Reaction Model
+- Video Model
+
+(8) Chatting - SocketIO (화)
+
+- api/v1/chat/msg
+  - [POST] - 채팅 메시지 생성
+- api/v1/chat/room
+  - [POST]: 채팅방 생성
+  - [GET]: 내가 접속해 있는 전체 채팅방 조회
+- api/v1/chat/room/{room_id}
+
+  - [GET]: 채팅방 조회
+
+- wss:127.0.0.0.1:8000/ws/chat/{room_id}
+
+  1.Chat 모델 생성 startapp chat
+
+- docker-compose run --rm app sh -c 'python manage.py startapp chat'
+
+  2.Django SocketIO 설치 -> Channels Library (pip install channels)
+  requirements.txt에 아래 문구 추가
+  channels>=4.0.0,<4.0.1
+  docker-compose build
+
+- 채팅 소켓 연결
+- 배포까지.! Django 마무리 // Fast API (목)
+
+(9) Deployment (수)
+
+- IAM 유저 생성
+- EC2 instance 생성 (Amazon Linux) -> Free tier
+- EC2 SSH 접속 -> Finger Print
+
+- AWS => 배포

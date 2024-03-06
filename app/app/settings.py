@@ -49,6 +49,9 @@ CUSTOM_USER_APPS = [
     "core",
     "rest_framework",
     "drf_spectacular",
+    "channels",
+    "chat.apps.ChatConfig",
+    "daphne",
 ]
 
 INSTALLED_APPS = CUSTOM_USER_APPS + DJANGO_SYSTEM_APPS
@@ -145,4 +148,12 @@ AUTH_USER_MODEL = "users.User"
 
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+# Channels를 사용하기 위한 설정
+ASGI_APPLICATION = "app.routing.application"
+WSGI_APPLICATION = "app.wsgi.application"
+
+# Channels 설정
+CHANNEL_LAYERS = {
+    "default": {"BACKEND": "channels.layers.InMemoryChannelLayer"},
 }
