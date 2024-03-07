@@ -35,3 +35,7 @@ services:
       - app
     volumes:
       - static_data:/vol/static
+
+volumes:
+  postgres-data:
+  static_data:
