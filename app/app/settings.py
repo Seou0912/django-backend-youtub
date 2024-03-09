@@ -69,6 +69,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "app.urls"
 
+ASGI_APPLICATION = "app.routing.application"
+WSGI_APPLICATION = "app.wsgi.application"
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -149,9 +152,6 @@ AUTH_USER_MODEL = "users.User"
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
-# Channels를 사용하기 위한 설정
-ASGI_APPLICATION = "app.routing.application"
-WSGI_APPLICATION = "app.wsgi.application"
 
 # Channels 설정
 CHANNEL_LAYERS = {
